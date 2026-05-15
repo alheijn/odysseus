@@ -1,0 +1,23 @@
+name: odysseus
+channels:
+- conda-forge
+- pytorch
+- defaults
+dependencies:
+- python=3.11
+- pytorch
+- torchvision
+- scikit-learn
+- pandas
+- numpy
+- matplotlib
+- seaborn
+- jupyter
+- ipywidgets  # for jupyter to properly render UI elements from tqdm and wandb
+- tqdm  # for progress bars
+- pillow  # used by torchvision.transform
+- pip
+- pip:
+  - wandb
+  - opencv-python
+  - kaggle
