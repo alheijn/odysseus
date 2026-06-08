@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
 
 from pathlib import Path
 import numpy as np
@@ -11,7 +9,7 @@ import shutil
 # ─── SETTINGS ─────────────────────────────────────────────────────────────────
 
 # set this to your dataset folder
-ROOT = Path(input("Enter path to dataset folder: "))
+ROOT = Path("data/ALPUB_v2/images")
 
 LETTERS = [
     "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta",
