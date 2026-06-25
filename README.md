@@ -43,10 +43,17 @@ python -m ipykernel install --user --name=odysseus --display-name "Python 3.11 (
 You can now launch the interactive notebook environment:
 
 ```bash
-jupyter notebook
+python start_jupyter_server.py
 ```
 
 **IMPORTANT**: select the *Python 3.11 (odysseus)* as the kernel!
+
+Why this wrapper exists: on some Windows installs, `jupyter notebook` can fail
+inside the conda environment with an SSL certificate-store error. The helper
+script pins the CA bundle to `certifi` before Jupyter imports `tornado`.
+In this environment, `python -m jupyterlab` can fail with
+`ssl.SSLError: [ASN1: NOT_ENOUGH_DATA]`; use `python start_jupyter_server.py`
+instead.
 
 
 ## Proposed Project Structure
