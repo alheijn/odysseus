@@ -106,3 +106,24 @@ class VGG16SPPFeatureExtractor(nn.Module):
         
         # Flattening 512 channels * 2 * 2 grid yields a 2048-dimensional vector
         return torch.flatten(x, 1) # Output shape: [Batch, 2048]
+
+class VGG16Block4SPPFeatureExtractor(nn.Module):
+    def __init__(self):
+        super().__init__()
+        # Load pre-trained VGG-16
+        vgg = vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
+        
+        # --- TAP INTO BLOCK 4 ---
+        # Layer 23 is the final MaxPool2d of Block 4. 
+        # Slicing [:24] keeps layers 0 through 23, discarding Block 5 entirely.
+        self.features = vgg.features[:24] 
+        
+        # --- SPATIAL PYRAMID POOLING (2x2) ---
+        self.pool = nn.AdaptiveAvgPool2d((2, 2))
+
+    def forward(self, x):
+        x = self.features(x)   # Output shape (with 256x256 input): [Batch, 512, 16, 16]
+        x = self.pool(x)       # Output shape: [Batch, 512, 2, 2]
+        
+        # Flattening 512 channels * 2 * 2 grid yields a 2048-dimensional vector
+        return torch.flatten(x, 1) # Output shape: [Batch, 2048]
